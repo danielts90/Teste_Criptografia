@@ -38,6 +38,7 @@ namespace Criptografia
             this.btn_Decriptar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btn_chaveAleatoria = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -117,11 +118,22 @@ namespace Criptografia
             this.label3.Size = new System.Drawing.Size(0, 13);
             this.label3.TabIndex = 8;
             // 
+            // btn_chaveAleatoria
+            // 
+            this.btn_chaveAleatoria.Location = new System.Drawing.Point(241, 4);
+            this.btn_chaveAleatoria.Name = "btn_chaveAleatoria";
+            this.btn_chaveAleatoria.Size = new System.Drawing.Size(100, 23);
+            this.btn_chaveAleatoria.TabIndex = 9;
+            this.btn_chaveAleatoria.Text = "Chave Aleatória";
+            this.btn_chaveAleatoria.UseVisualStyleBackColor = true;
+            this.btn_chaveAleatoria.Click += new System.EventHandler(this.btn_chaveAleatoria_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 425);
+            this.Controls.Add(this.btn_chaveAleatoria);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_Decriptar);
@@ -149,6 +161,7 @@ namespace Criptografia
         private System.Windows.Forms.Button btn_Decriptar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btn_chaveAleatoria;
     }
 }
 

@@ -37,25 +37,30 @@ namespace Criptografia.Algoritimos
                     }
                 }
 
-                byte[] combinedData = new byte[aesAlg.IV.Length + encrypted.Length];
-                Array.Copy(aesAlg.IV, 0, combinedData, 0, aesAlg.IV.Length);
-                Array.Copy(encrypted, 0, combinedData, aesAlg.IV.Length, encrypted.Length);
+                //Concatena o IV com a mensagem encriptada. 
+                //O IV serve para diferenciar o padrão das mensagens
+                //ele deve ser único para cada mensagem e não precisa ser secreto. 
+                byte[] cripto = new byte[aesAlg.IV.Length + encrypted.Length];
+                Array.Copy(aesAlg.IV, 0, cripto, 0, aesAlg.IV.Length);
+                Array.Copy(encrypted, 0, cripto, aesAlg.IV.Length, encrypted.Length);
 
-                return combinedData;
+                return cripto;
 
             }
         }
 
-        public string DecriptarMensagem(byte[] textocombinado, byte[] chave /*byte[] ivs*/)
+        public string DecriptarMensagem(byte[] textocriptografadoComIV, byte[] chave)
         {
             string plaintext = null;
 
             using (Aes aesAlg = Aes.Create())
             {
+
+                //Separa o IV da mensagem encriptada. 
                 byte[] iv = new byte[aesAlg.BlockSize / 8];
-                byte[] cipherText = new byte[textocombinado.Length - iv.Length];
-                Array.Copy(textocombinado, iv, iv.Length);
-                Array.Copy(textocombinado, iv.Length, cipherText, 0, cipherText.Length);
+                byte[] cipherText = new byte[textocriptografadoComIV.Length - iv.Length];
+                Array.Copy(textocriptografadoComIV, iv, iv.Length);
+                Array.Copy(textocriptografadoComIV, iv.Length, cipherText, 0, cipherText.Length);
 
 
                 aesAlg.Key = chave;

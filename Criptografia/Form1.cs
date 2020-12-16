@@ -1,6 +1,7 @@
 ﻿using Criptografia.Algoritimos;
 using Criptografia.Extensao;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Criptografia
@@ -16,6 +17,7 @@ namespace Criptografia
     /// </summary>
     public partial class Form1 : Form
     {
+        private const int TAMANHO_CHAVE = 16;
         private byte[] msg_criptografada;
         private byte[] iv;
         private AES aes = new AES();
@@ -45,9 +47,9 @@ namespace Criptografia
 
         private bool ValidarChave()
         {
-            if(txt_chave.Text.Length != 16)
+            if(txt_chave.Text.Length != TAMANHO_CHAVE)
             {
-                MessageBox.Show("Chave deve conter 16 caracteres");
+                MessageBox.Show($"Chave deve conter {TAMANHO_CHAVE} caracteres");
                 return false;
             }
             return true;
@@ -65,6 +67,17 @@ namespace Criptografia
                 MessageBox.Show("Falha ao decrifrar a mensagem");
             }
             
+        }
+
+        private void btn_chaveAleatoria_Click(object sender, EventArgs e)
+        {
+            var caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%¨&*()_+";
+            var random = new Random();
+            var chavealeatoria = new string(
+                Enumerable.Repeat(caracteres, TAMANHO_CHAVE)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+           txt_chave.Text =  chavealeatoria;
         }
     }
 }
